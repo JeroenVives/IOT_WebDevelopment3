@@ -1,20 +1,28 @@
+import { containerPlugin } from '@vuepress/plugin-container'
+import { viteBundler } from '@vuepress/bundler-vite'
+import { defaultTheme } from '@vuepress/theme-default'
+
+
 module.exports = {
+  bundler: viteBundler(),
+  lang: 'nl-BE',
   title: 'Webdevelopment - graduaat Internet of Things',
   description: 'Cursus Webdevelopment graduaat Internet of Things',
-  themeConfig: {
+  theme: defaultTheme({
     logo: '/files/afbeelding2.png',
-    nav: [
+    navbar: [
       { text: 'Home', link: '/' },
       { text: 'Company', link: 'https://www.vives.be' },      
-      { text: 'Contact', link: 'mailto:ronny.mees@vives.be' },
+      { text: 'Contact', link: 'mailto:jeroen.reinenbergh@vives.be' },
     ],
     sidebarDepth: 1,
-    repo: 'https://github.com/ronnymees/webdevelopment',
+    repo: 'https://github.com/JeroenVives/IOT_WebDevelopment3',
     docsDir: 'docs',
     docsBranch: 'master',
     sidebar: [
       { 
-        title: 'Webdesign',
+        text: 'Webdesign',
+        collapsible: true,
         children: [
           '/01_introduction/',
           '/02_html/',
@@ -25,35 +33,33 @@ module.exports = {
         ]
       },
       { 
-        title: 'Front-end webdevelopment',
+        text: 'Front-end webdevelopment',
+        collapsible: false,
         children: [
           '/07_javascript/',
         ]
       },
       {
-        title: 'Back-end webdevelopment',
+        text: 'Back-end webdevelopment',
+        collapsible: false,
         children: [
            '/08_php/', 
         ]
       }           
     ]    
-  },
+  }),
   markdown: {
     lineNumbers: true,
   },
   serviceWorker: true,
   plugins: [
-    ['vuepress-plugin-zooming', {
-      selector: 'img',
-      options: {
-        bgColor: 'black',
-        zIndex: 10000,
+    containerPlugin({
+      type: 'codeoutput',
+      locales: {
+        '/': {
+          defaultInfo: 'Output',
+        },
       },
-    }],
-	  ['container', {
-        type: 'output',
-        defaultTitle: 'Output',
-      }],
-    ['@dovyp/vuepress-plugin-clipboard-copy', true],    
+    }),  
   ],  
 }

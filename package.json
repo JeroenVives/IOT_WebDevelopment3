@@ -7,24 +7,23 @@
     "doc": "docs"
   },
   "scripts": {
-    "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vuepress dev docs",
+    "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ronnymees/webdevelopment.git"
+    "url": "git+https://github.com/JeroenVives/IOT_WebDevelopment3"
   },
-  "author": "Ronny Mees",
+  "author": "Jeroen Reinenbergh",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ronnymees/webdevelopment/issues"
+    "url": "https://github.com/JeroenVives/IOT_WebDevelopment3/issues"
   },
-  "homepage": "https://github.com/ronnymees/webdevelopment#readme",
+  "homepage": "https://github.com/JeroenVives/IOT_WebDevelopment3#readme",
   "devDependencies": {
-    "vuepress": "^1.2.0",
-    "vuepress-plugin-zooming": "^1.1.8"
-  },
-  "dependencies": {
-    "@dovyp/vuepress-plugin-clipboard-copy": "^1.0.0-alpha.7"
+    "@vuepress/bundler-vite": "^2.0.0-rc.15",
+    "@vuepress/plugin-container": "^2.0.0-rc.0",
+    "@vuepress/theme-default": "^2.0.0-rc.42",
+    "vuepress": "^2.0.0-rc.15"
   }
 }

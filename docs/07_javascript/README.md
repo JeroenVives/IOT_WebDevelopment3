@@ -1073,8 +1073,8 @@ In ons voorbeeld willen we het volgende gaan uitvoeren :
 
 <!-- blank line -->
 <figure class="video_container">
-  <video width="600" controls="true" allowfullscreen="true" poster="./movies/formvalidation-node-red.png">
-    <source src="./movies/formvalidation-node-red.mp4" type="video/mp4">    
+  <video width="600" controls="true" allowfullscreen="true" poster="/files/formvalidation-node-red.png">
+    <source src="/files/formvalidation-node-red.mp4" type="video/mp4">    
   </video>
 </figure>
 <!-- blank line -->
