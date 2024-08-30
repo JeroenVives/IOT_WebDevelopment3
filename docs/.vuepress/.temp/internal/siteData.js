@@ -1,1 +1,0 @@
-export const siteData = JSON.parse("{\"base\":\"/\",\"lang\":\"nl-BE\",\"title\":\"Webdevelopment - graduaat Internet of Things\",\"description\":\"Cursus Webdevelopment graduaat Internet of Things\",\"head\":[],\"locales\":{}}")
