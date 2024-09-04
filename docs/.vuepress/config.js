@@ -6,8 +6,8 @@ import { defaultTheme } from '@vuepress/theme-default'
 module.exports = {
   bundler: viteBundler(),
   lang: 'nl-BE',
-  title: 'Webdevelopment - graduaat Internet of Things',
-  description: 'Cursus Webdevelopment graduaat Internet of Things',
+  title: 'Web development 3 - Graduaat Internet of Things',
+  description: 'Cursus Web Development 3 Graduaat Internet of Things',
   theme: defaultTheme({
     logo: '/files/afbeelding2.png',
     navbar: [
@@ -20,30 +20,11 @@ module.exports = {
     docsDir: 'docs',
     docsBranch: 'master',
     sidebar: [
-      { 
-        text: 'Webdesign',
-        collapsible: true,
-        children: [
-          '/01_introduction/',
-          '/02_html/',
-          '/03_css/',          
-          '/04_forall/',          
-          '/05_online/',          
-          '/06_publish/',          
-        ]
-      },
-      { 
-        text: 'Front-end webdevelopment',
-        collapsible: false,
-        children: [
-          '/07_javascript/',
-        ]
-      },
       {
         text: 'Back-end webdevelopment',
         collapsible: false,
         children: [
-           '/08_php/', 
+           '/08_php/',
         ]
       }           
     ]    
