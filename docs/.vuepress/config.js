@@ -24,7 +24,14 @@ module.exports = {
         text: 'Back-end webdevelopment',
         collapsible: false,
         children: [
-           '/08_php/',
+          '/00_installatie/',
+          '/01_introductie/',
+          '/02_apis/',
+          '/03_forms/',
+          '/04_databases/',
+          '/05_mailing/',
+          '/06_sessies/',
+          '/07_troubleshooting/',
         ]
       }           
     ]    

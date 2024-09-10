@@ -1,17 +1,21 @@
-# Webdevelopment
+# Web development 3
 
 ## Inleiding
 
 Deze cursus is ontwikkeld voor de opleiding graduaat Internet of Things van de hogeschool [VIVES](https://www.vives.be/iot).
-Tijdens deze cursus wordt jullie de basisvaardigheden van webdevelopment aangeleerd a.d.h.v. html, css, javascript en PHP.
+Tijdens deze cursus wordt jullie de basisvaardigheden van back-end web development aangeleerd a.d.h.v. PHP. Omdat vaak teruggegrepen zal worden naar kennis die reeds in vorige opleidingsonderdelen aan bod kwam, wordt hier een kleine opfrissing ter beschikking gesteld:
+* [HTML](/files/cheatsheet_html.pdf)
+* [CSS](/files/cheatsheet_css.pdf)
+* [JavaScript](/files/cheatsheet_js.pdf)
 
 ## Inhoud
 
-1. Introductie in web development
-2. De structuur van een webpagina
-3. De opmaak van een webpagina
-4. Interactief maken van een webpagina
-5. Back-end webdevelopment
+1. Introductie
+2. APIs
+3. Forms
+4. Databanken
+5. Mailing
+6. Sessies
 
 ## Bronnen
 
