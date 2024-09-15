@@ -689,9 +689,9 @@ Om de nieuwe leerstof nog beter te begrijpen kan je onderstaande bronnen even be
 
 ## PHP verkennen via een voorbeeld
 
-We maken een pagina die de maaltafels zal tonen. De inhoud van die pagina zal op de server gegenereerd worden via PHP.
+We maken een pagina die de maaltafels zal tonen. De inhoud van die pagina zal op je server gegenereerd worden via PHP.
 
-We maken onder `C:\Apache\htdocs` een folder `Webdevelopment` aan en creëren daar het bestand `maaltafels.php` met volgende inhoud:
+Maak in de root folder van je web server een map `Webdevelopment` aan en creëer daar het bestand `maaltafels.php` met volgende inhoud:
 
 ```php
 <html>
@@ -709,7 +709,7 @@ We maken onder `C:\Apache\htdocs` een folder `Webdevelopment` aan en creëren da
     </body>
 </html>
 ```
-We plaatsen de `\n` in de code om dat de door php gegenereerde html code dan mooier/leesbaarder is. Je kan die code zien door de paginabron van je webpagina te bekijken.
+We plaatsen de `\n` in de code omdat de door php gegenereerde html code dan mooier/leesbaarder is. Je kan die code zien door de paginabron van je webpagina te bekijken.
 
 Vervolgens maken we de effectieve maaltafel aan in een tabel:
 
@@ -762,10 +762,10 @@ Tot slot vervangen we de binnenste geneste for-lus door een functie:
 </html>
 ```
 
-## Klasopdracht
+## Project
 
-::: tip Back-end IoT applicatie
+::: tip Deel 1
 
-Kick-off klassikale opdracht
+Je bezit nu voldoende kennis om te starten aan het project. Begin alvast met deel 1 (Kick-off)!
 
 :::

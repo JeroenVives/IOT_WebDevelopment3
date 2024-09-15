@@ -91,7 +91,7 @@ Een **session** is een soort cookie met een id. Iedere client krijgt een uniek i
     <button>Submit</button>
 </form>
 ```
-Als we ditmaal de cookies inspecteren in onze browser stellen we vast dat er slechts 1 cookie aanwezig is met de naam PHPSESSID met jou unieke indentifier voor deze sessie.
+Als we ditmaal de cookies inspecteren in onze browser stellen we vast dat er slechts 1 cookie aanwezig is met de naam PHPSESSID met jouw unieke indentifier voor deze sessie.
 
 ![download](../images/afbeelding8.png)
 
@@ -106,7 +106,7 @@ Een basis loginsysteem ziet er als volgt uit:
     session_start();                                    // Start or renew the session
     $logged_in = $_SESSION['logged_in'] ?? false;       // Is the user logged in?
     
-    $email = 'evy.bucket@outlook.com';                  // Email to log in
+    $email = 'jos.vermeulen@mail.com';                  // Email to log in
     $password = 'password';                             // Password to log in
 
     function login(){                                   // After succesfull login
@@ -134,15 +134,15 @@ Een basis loginsysteem ziet er als volgt uit:
 ?>
 ```
 
-Die gebruikersnaam en paswoord worden bij registratie bewaard in een database. Om er voor te zorgen dat een paswoord veilig bewaard is in een database moet deze versleuteld worden. Doe je dit niet dan kan een hacker eenmaal toegang gekregen tot jou database met alle gebruikersnamen en paswoorden aan de slag.
+Die gebruikersnaam en paswoord worden bij registratie bewaard in een database. Om er voor te zorgen dat een paswoord veilig bewaard is in een database moet deze versleuteld worden. Doe je dit niet dan kan een hacker eenmaal toegang gekregen tot jouw database met alle gebruikersnamen en paswoorden aan de slag.
 
 ::: danger Waarschuwing
 Het is bij wet verplicht om paswoorden versleuteld te bewaren. Hier staan zeer hoge boetes op!
 :::
 
-Om een paswoord te versleutelen gebruiken we een **hash-functie** deze gebruikt een algoritme (naar keuze) om het paswoord om te vormen in een niet leesbare reeks van karakters. Waarbij het eerste deel het algoritme bevat.
+Om een paswoord te versleutelen, gebruiken we een **hash-functie**. Deze gebruikt een algoritme (naar keuze) om het paswoord om te vormen in een onleesbare reeks van karakters.
 
-Het is onmogelijk om vanuit de hash het paswoord te berekenen. Bij gevolg moet je het ingebrachte paswoord met het zelfde algoritme versleutelen en dan deze vergelijken met de in de database bewaarde hash.
+Het is praktisch onmogelijk om vanuit de hash het paswoord te berekenen. Bijgevolg moet je het ingebrachte paswoord met hetzelfde algoritme versleutelen en deze dan vergelijken met de in de database bewaarde hash.
 
 ### Laten we even een voorbeeld bekijken
 
@@ -155,7 +155,7 @@ Het is onmogelijk om vanuit de hash het paswoord te berekenen. Bij gevolg moet j
     $hash=password_hash($password,PASSWORD_DEFAULT);
     // Debug van de hash
     var_dump($hash);
-    //gebruik password_verify => algoritme die moet gebruikt worden zit in de eerste bytes van de hash
+    //gebruik password_verify => algoritme dat moet gebruikt worden zit in de eerste bytes van de hash
     if(password_verify($password_input, $hash)){
         echo "<div>password correct</div>";
     }
@@ -177,9 +177,9 @@ Bedrijven hebben het recht om de persoonsgegevens van gebruikers te verwerken in
 
 ### ePrivacy Regulation
 
-Dit is een uitbreiding op de GDPR wetgeving die binnenkort van kracht komt:
+Dit is een uitbreiding op de GDPR wetgeving die binnenkort van kracht zal zijn:
 
-* toegang tot websites niet verbieden indien cookies gebruik niet werd goedgekeurd
+* toegang tot websites niet verbieden indien cookiegebruik niet werd goedgekeurd
 * wifi locatie en device tracking
 * privacy setting van de browsers standaard aan
 * regulatie van de inhoud van de metadata (cookies)
@@ -207,7 +207,7 @@ Cookies vallen onder volgende klassificatie:
 
 ### Cookie richtlijnen
 
-* gebruikers dienen toestemming te geven vooraleer cookies te gebruiken, uitgezonderd de noodzakelijke cookies(strictly necessary cookies)
+* gebruikers dienen toestemming te geven vooraleer cookies te gebruiken, uitgezonderd de noodzakelijke cookies (strictly necessary cookies)
 * de gebruiker informeren welke data elke cookie precies volgt, en dit vooraleer toestemming werd verkregen
 * de toestemmingen van de gebruikers documenteren en bewaren
 * de gebruikers toelating geven om je service te gebruiken, zelfs indien ze geen toestemming gaven voor bepaalde cookies
@@ -217,10 +217,10 @@ Een mooi voorbeeld is [Cookiebot](https://www.cookiebot.com/en/cookie-consent).
 
 ![download](../images/afbeelding10.png)
 
-## Klasopdracht
+## Project
 
-::: tip Back-end IoT applicatie
+::: tip Deel 6
 
-Verder werken aan de info pagina van de klassikale opdracht
+Werk je project af door ook deel 6 (Sessions) te vervolledigen.
 
 :::

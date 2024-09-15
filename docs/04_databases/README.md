@@ -4,18 +4,11 @@
 
 ## Een oefendatabase aanmaken en CRUD testen
 
-Voor alle database gerelateerde acties verwijs ik naar de cursus Databases.
+Voor alle database gerelateerde acties kan je teruggrijpen naar de cursus Databases.
 
-We starten met de aanmaak van een database en een gebruiker. Je kan dit in jou favarite tool doen zoals **mySQL Workbench** of **phpMyAdmin**.
+We starten met de aanmaak van een database op onze web server.
 
-```sql
-CREATE DATABASE vives;
-USE vives;
-CREATE USER 'webuser'@'localhost' IDENTIFIED BY "secretpassword";
-GRANT ALL PRIVILEGES ON vives.* TO 'webuser'@'localhost';
-```
-
-Vervolgens maken we een tabel, ook schema genoemd, aan.
+Open vervolgens de **PHPMyAdmin** web interface en maak een nieuwe tabel aan:
 
 ```sql
 CREATE TABLE subjects (id INT(11) NOT NULL AUTO_INCREMENT,
@@ -26,9 +19,9 @@ PRIMARY KEY (id)
 );
 ```
 
-De meest voor de hand liggende interacties met een database zullen Create, Read, Update en Delete query's zijn. Hier zal vaar verwezen worden naar **CRUD** query's.
+De meest voor de hand liggende interacties met een database zullen Create, Read, Update en Delete query's zijn. Hier zal vaak verwezen worden naar **CRUD** queries.
 
-Laten we even enkele CRUD query's uitvoeren op onze tabel:
+Laten we even enkele CRUD queries uitvoeren op onze tabel:
 
 ```sql
 /* Create */
@@ -47,7 +40,7 @@ DELETE FROM subjects WHERE id=4 LIMIT 1;
 Voeg bij een delete steeds `LIMIT 1` toe aan de query. Zo kan max 1 record gewist worden, zo vermijd je dat je volledig tabel gewist wordt door een foutieve query.
 :::
 
-## De basis interactie met een database vanuit PHP
+## De basisinteractie met een database vanuit PHP
 
 Een typische interactie met een database vanuit PHP ziet er als volgt uit:
 
@@ -60,10 +53,10 @@ Een typische interactie met een database vanuit PHP ziet er als volgt uit:
 ```php
 <?php
     // de database login gegevens
-    $dbhost = 'localhost';
-    $dbuser = 'webuser';
-    $dbpass = 'secretpassword';
-    $dbname = 'vives';
+    $dbhost = '***';
+    $dbuser = '***';
+    $dbpass = '***';
+    $dbname = '***';
 
     // 1. Verbinden met de database
     $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
@@ -85,7 +78,7 @@ Een typische interactie met een database vanuit PHP ziet er als volgt uit:
 ?>
 ```
 
-Je kan ook de ontvangen data in een JSON formaat plaatsen.
+Je kan de ontvangen data ook in JSON formaat weergeven:
 
 ```php
 // De query uitvoeren
@@ -104,10 +97,10 @@ We maken een form waarmee we data kunnen toevoegen aan de tabel. Noem dit bestan
 ```php
 <?php
     // de database login gegevens
-    $dbhost = 'localhost';
-    $dbuser = 'webuser';
-    $dbpass = 'secretpassword';
-    $dbname = 'vives';
+    $dbhost = '***';
+    $dbuser = '***';
+    $dbpass = '***';
+    $dbname = '***';
 
     // Verbinden met de database
     $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
@@ -136,9 +129,9 @@ We maken een form waarmee we data kunnen toevoegen aan de tabel. Noem dit bestan
 </form>
 ```
 
-Bij een POST roepen we dus dezelfde pagina op, we zullen dus in de pagina opnieuw moeten kunnen onderscheppen als het om een GET of POST request gaat.
+Bij een HTTP POST request roepen we dezelfde pagina op als bij een HTTP GET request. We zullen het type request dus op een of andere manier moeten onderscheppen om zo een onderscheid te kunnen maken tussen de twee.
 
-We plaatsen dit na de verbinding met de database zodat de nieuwe data ook reeds onmiddellijk weergegeven wordt op de pagina:
+We plaatsen deze code onder de verbinding met de database, zodat de nieuwe data ook onmiddellijk weergegeven worden op de pagina:
 
 ```php
 // Is het een POST request?
@@ -151,11 +144,11 @@ if($_SERVER['REQUEST_METHOD']=='POST')
   mysqli_query($connection,$insert);
 }
 ```
-We gebruiken hierbij `mysqli_real_escape_string()` om te vermijden dat hackers een `;` zouden plaatsen in de input gevolgd door een SQL commando waardoor ongewenste interactie met onze database zou kunnen ontstaan.
+We gebruiken hierbij `mysqli_real_escape_string()` om te vermijden dat hackers een `;` zouden plaatsen in de input gevolgd door een SQL commando waardoor ongewenste interactie met onze database zou kunnen ontstaan. Dit soort aanval wordt ook wel een **SQL injectie** genoemd.
 
 We zijn nu in staat om nieuwe records aan onze tabel toe te voegen. Vervolgens willen we ook records kunnen wissen vanuit dezelfde pagina.
 
-Hiervoor maken we een 2de form op onze pagina, we doen dit net na het uitvoeren van de query en voor het gebruiken van de resultaten. Hiervoor onderbreken we even onze PHP code om een HTML tag te gebruiken:
+Hiervoor maken we een tweede form op onze pagina, we doen dit net na het uitvoeren van de query en voor het gebruiken van de resultaten. Hiervoor onderbreken we even onze PHP code om een HTML tag te gebruiken:
 
 ```php
 ?>
@@ -165,7 +158,7 @@ Hiervoor maken we een 2de form op onze pagina, we doen dit net na het uitvoeren 
 <?php
 ```
 
-Om te kunnen aanduiden welke record gewist moeten worden plaatsen we na elk record een checkbox, we doen dit in de while-lus.
+Om te kunnen aanduiden welke record gewist moet worden plaatsen we na elk record een checkbox, we doen dit in de while-lus.
 
 Pas de code als volgt aan:
 
@@ -177,7 +170,7 @@ Pas de code als volgt aan:
     }
 ```
 
-Net voor we de verbinding met de database afsluiten onderbreken we terug de php code om via HTML een submit button te plaatsen en onze form te sluiten.
+Net voor we de verbinding met de database afsluiten, onderbreken we opnieuw de php code om via HTML een submit button te plaatsen en onze form te sluiten.
 
 ```php
 ?>
@@ -186,23 +179,21 @@ Net voor we de verbinding met de database afsluiten onderbreken we terug de php 
 <?php
 ```
 
-Tot slot moeten we bij de POST nu kunnen onderscheiden of het om een **Insert** of een **Delete** gaat. Hiervoor gebruiken we een trucje, we plaatsen een verborgen veld in het form.
+Tot slot moeten we in het geval van een HTTP POST request nu kunnen onderscheiden of het om een **Insert** of een **Delete** gaat. Hiervoor gebruiken we een trucje, we plaatsen een verborgen veld in het formulier.
 
-Dit komt in het delete-form gedeelte voor de submit button:
+In het geval van een delete plaatsen we dit voor de submit button:
 
 ```php
 <input type="hidden" name="action" value="delete" />
 ```
 
-En dit komt in het insert-form gedeelte voor de submit button:
+Wanneer we een insert willen uitvoeren, plaatsen we dit voor de submit button:
 
 ```php
 <input type="hidden" name="action" value="insert" />
 ```
 
-Bij een POST zal er dus een verborgen veld `action` gepost worden met de waarde `insert` of `delete`.
-
-We onderscheiden bij de POST actie nu hiermee of we een insert of een delete interactie moeten uitvoeren.
+Bij een HTTP POST request zal er dus een verborgen veld `action` gepost worden met de waarde `insert` of `delete`. Hiermee onderscheiden we een insert van een delete.
 
 Wijzig het POST gedeelte als volgt:
 
@@ -230,10 +221,10 @@ if($_SERVER['REQUEST_METHOD']=='POST')
 
 Zo, nu hebben we een PHP pagina waarmee we records kunnen toevoegen en wissen in onze tabel.
 
-## Klasopdracht
+## Project
 
-::: tip Back-end IoT applicatie
+::: tip Deel 4
 
-Verder werken aan de info pagina, WEBApi en het IoT device alsook het aanmaken van de database van de klassikale opdracht
+Werk verder aan je project. Je bezit nu de vaardigheden om deel 4 (Database) tot een goed einde te brengen.
 
 :::

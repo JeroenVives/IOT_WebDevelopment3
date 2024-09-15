@@ -177,11 +177,11 @@ Dit ziet er dan als volgt uit:
 </html>
 ```
 
-## Klasopdracht
+## Project
 
-::: tip Back-end IoT applicatie
+::: tip Deel 3
 
-Aanmaken van de info pagina van de klassikale opdracht
+Voer deel 3 (Form) van het project uit.
 
 :::
 

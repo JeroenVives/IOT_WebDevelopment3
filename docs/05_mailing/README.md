@@ -1,15 +1,15 @@
 # Week 5 - PHP en mail
 
-We maken gebruik van de intern voorziene mailservice van XXAMP.
+We maken gebruik van de mail service van onze web host.
 
 De basis van het sturen van een mail ziet er als volgt uit:
 
 ```php
 <?php
-    $to_email = "receipient@gmail.com";
+    $to_email = "recipient@mail.com";
     $subject = "Simple Email Test via PHP";
     $body = "Hi, This is test email send by PHP Script";
-    $headers = "From: sender email";
+    $headers = "From: sender@mail.com";
 
     if (mail($to_email, $subject, $body, $headers)) {
         echo "Email successfully sent to $to_email...";
@@ -19,11 +19,11 @@ De basis van het sturen van een mail ziet er als volgt uit:
 ?>
 ```
 
-Test dit uit zodat je zeker bent dat je email configuratie in orde is.
+Test dit uit zodat je zeker bent dat de configuratie van je mail service in orde is.
 
 ## Een bevestigingsmail versturen
 
-We starten met [een eenvoudige pagina](/files/mailform.zip) met een form waar je een voornaam, naam en email adres kan ingeven.
+We starten met [een eenvoudige pagina](/files/mailform.zip) die een formulier bevat waar je een voornaam, naam en email adres kan ingeven.
 
 Bij een geldige submit kunnen we nu in het bestand `mailconfirm.php` een berichtje naar dat email adres sturen.
 
@@ -191,7 +191,7 @@ Tot slot kunnen we de confirmatie tekst voorzien:
 
 ## Een APIkey genereren
 
-Bij het gebruik van een WEB API zal veelal een APIkey worden aangemaakt. Deze zal jou user en wachtwoord combinatie vervangen om de API te gebruiken.
+Bij het gebruik van een WEB API zal veelal een APIkey worden aangemaakt. Deze zal jouw user en wachtwoord combinatie vervangen om de API te gebruiken.
 
 Een APIkey is een onleesbare stringcombinatie van tekens die als volgt kan gegenereerd worden (dit is slecht 1 van de mogelijkheden om dit te doen).
 
@@ -221,11 +221,11 @@ Je kan nu in de PHP code de APIkey met deze functie genereren:
     $apikey = getGUID();
 ```
 
-## Klasopdracht
+## Project
 
-::: tip Back-end IoT applicatie
+::: tip Deel 5
 
-Verder werken aan de info pagina en WEBApi van de klassikale opdracht
+Implementeer deel 5 (Mail) van het project.
 
 :::
 

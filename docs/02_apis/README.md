@@ -142,11 +142,11 @@ M.b.v. `json_encode` kunnen we eenvoudig de array omvormen tot een JSON object.
 ?>
 ```
 
-## Klasopdracht
+## Project
 
-::: tip Back-end IoT applicatie
+::: tip Deel 2
 
-WEB API in de klassikale opdracht
+Implementeer deel 2 (API) van het project.
 
 :::
 
