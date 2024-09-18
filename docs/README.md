@@ -1,5 +1,7 @@
 # Web development 3
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2bc4327c-2195-4aa4-a397-fa68bf1b3711/deploy-status)](https://app.netlify.com/sites/iot-webdevelopment3/deploys)
+
 ## Inleiding
 
 Deze cursus is ontwikkeld voor de opleiding graduaat Internet of Things van de hogeschool [VIVES](https://www.vives.be/iot).

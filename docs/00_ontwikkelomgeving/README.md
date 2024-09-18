@@ -8,7 +8,7 @@ Visual Studio Code (ook wel VS Code genoemd) is een ontwikkelomgeving die ontzet
 
 VS Code is gemaakt om uitbreidbaar te zijn. Er zijn dan ook heel veel extensies beschikbaar die ons leven een pak eenvoudiger kunnen maken, concreet zullen we de volgende installeren:
 * [PHP](https://marketplace.visualstudio.com/items?itemName=DEVSENSE.phptools-vscode): deze uitbreiding biedt ons code completion, refactoring hulp, conventiechecks en zelfs een lokale development server.
-* [ftp-simple](https://marketplace.visualstudio.com/items?itemName=humy2833.ftp-simple): hiermee kunnen we onze lokale codewijzigingen automatisch synchroniseren met de web server.
+* [ftp-simple](https://marketplace.visualstudio.com/items?itemName=humy2833.ftp-simple): hiermee kunnen we onze lokale codewijzigingen automatisch synchroniseren met de web server. Mogelijk zal je een hotfix moeten installeren om [deze breaking issue](https://github.com/humy2833/FTP-Simple/issues/324) te verhelpen.
 
 Op de documentatiepagina van elke tool kan steeds een uitgebreide gebruikshandleiding teruggevonden worden.
 
