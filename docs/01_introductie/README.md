@@ -200,7 +200,7 @@ De definitie en bewerkingen van integers zijn hier eveneens van toepassing, er z
     echo round($getal1);
 
     // Geeft het komma getal weer als een integer afgerond naar boven
-    echo ciel($getal2);
+    echo ceil($getal2);
 
     // Geeft het komma getal weer als een integer afgerond naar beneden
     echo floor($getal3);
