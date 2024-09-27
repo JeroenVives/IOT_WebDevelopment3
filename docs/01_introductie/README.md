@@ -340,10 +340,10 @@ Je kan in PHP perfect een variabele aanmaken die nog geen value heeft.
     $var1 = null;
 
     // Controlleren of een variabele ongedefinieerd is
-    is_nul($var1);
+    is_null($var1);
 
     // Controlleren of een variabele gedefinieerd is
-    is_set($var1);
+    isset($var1);
 
 ?>
 ```
@@ -670,13 +670,15 @@ Je defineert een klasse als volgt:
 ?>
 ```
 
-Je maakt als volgt een nieuwe variabele van het type van jou klasse:
+Je maakt als volgt een nieuwe variabele van het type van jouw klasse:
 
 ```php
     $account = new Account();
     // of
     $account = new Account(20147596, 'Visa', 2500.00);
 ```
+
+Een uitbreiding op dit voorbeeld kan je [hier](/files/oo.php) terugvinden.
 
 ::: tip Herhaling
 
