@@ -51,16 +51,28 @@ echo "<div>b is {$data->args->b}<div>";
 
 ### Deze techniek even toepassen op een WEB-API die we reeds kennen
 
+Heb je nog geen account? Maak die dan [hier](https://home.openweathermap.org/users/sign_up) even aan.
 We gebruiken terug cURL om via openweathermap het weer op te vragen:
 
 ```php
 <?php
-    // variabelen
-    $stad = "brugge";
-    $apiid = "plaats hier je eigen api id voor openweathermap";
-    $url = "https://api.openweathermap.org/data/2.5/weather?q=".$stad."&appid=".$apiid."&units=metric&lang=nl";
+    $apikey = "plaats hier je eigen api sleutel voor openweathermap";
+    $stad = "kortrijk";
 
-    // functie curl
+    $url = "https://api.openweathermap.org/geo/1.0/direct?q=".$stad."&appid=".$apikey;
+    $content = curlRequest($url);
+    $data = json_decode($content);
+    $lat = $data[0]->lat;
+    $lon = $data[0]->lon;
+
+    $url = "https://api.openweathermap.org/data/2.5/weather?lat=".$lat."&lon=".$lon."&appid=".$apikey."&units=metric&lang=nl";
+    $content = curlRequest($url);
+    $data = json_decode($content);
+
+    echo "<p>Temperatuur is {$data->main->temp}</p>";
+    echo "<p>De weersomschrijving: \"{$data->weather[0]->description}\"</p>";
+    echo "<img id=\"icoon\" src=\"https://openweathermap.org/img/wn/{$data->weather[0]->icon}@2x.png\"></img>";
+
     function curlRequest($url)
     {
         $ch = curl_init();
@@ -74,17 +86,10 @@ We gebruiken terug cURL om via openweathermap het weer op te vragen:
         curl_close($ch);
         return $response;
     }
-
-    // Curl request
-    $content = curlRequest($url);
-    $data = json_decode($content);
-
-    // Visualiseren
-    echo "<div>temperatuur is {$data->main->temp}</div>";
-    echo "<div>de weersomschrijving: \"{$data->weather[0]->description}\"</div>";
-    echo "<img id=\"icoon\" src=\"http://openweathermap.org/img/wn/{$data->weather[0]->icon}@2x.png\"></img>";
 ?>
 ```
+Merk op dat we eerst de exacte locatie opvragen en we vervolgens die exacte locatie gebruiken om het weer op te vragen. We voeren dus twee verschillende API calls uit.
+
 ## Zelf een WEB-API schrijven in PHP
 
 Als we een WEB-API gebruiken sturen we een HTTP GET request naar een url en krijgen een JSON response terug.
