@@ -406,6 +406,27 @@ Logische beslissingen in PHP werken op identiek dezelfde wijze als in c#. De opb
     }
 ?>
 ```
+Je kan je HTML ook rechtstreeks typen binnenin een conditionele structuur door je script tijdelijk te onderbreken:
+```php
+<html>
+    <body>
+        <p>Groter dan 5?</p>
+        <?php
+            $number = 3;
+            if ( > 5) {
+                // HTML tonen via echo
+                echo "<p>True</p>";
+            }
+            else {
+        ?>
+        <!--HTML rechtstreeks tonen, maar nog steeds tussen de twee accolades van het else-blok-->
+        <p>False</p>
+        <?php
+            }
+        ?>
+    </body>
+</html>
+```
 
 ### switch
 
