@@ -59,22 +59,25 @@ Een typische interactie met een database vanuit PHP ziet er als volgt uit:
     $dbname = '***';
 
     // 1. Verbinden met de database
-    $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+    $connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+    if ($mysqli->connect_error) {
+        die("Connect Error ({$mysqli->connect_errno}) {$mysqli->connect_error}");
+    }
 
     // 2. Een query uitvoeren
     $query = "SELECT * FROM subjects";
-    $result_set = mysqli_query($connection, $query);
+    $result_set =$connection->execute_query($query);
 
     // 3. De ontvangen resultaten gebruiken
-    while($subject = mysqli_fetch_assoc($result_set)) {
+    while($subject = $result_set->fetch_assoc()) {
       echo $subject["menu_name"] . "<br />";
     }
 
     // 4. De ontvangen resultaten loslaten
-    mysqli_free_result($result_set);
+    $result_set->free();
 
     // 5. De verbinding met de database afsluiten
-    mysqli_close($connection);
+    $connection->close();
 ?>
 ```
 
@@ -83,9 +86,9 @@ Je kan de ontvangen data ook in JSON formaat weergeven:
 ```php
 // De query uitvoeren
 $query = "SELECT * FROM subjects";
-$result_set = mysqli_query($connection, $query);
+$result_set = $connection->execute_query($query);
 // De data in een associatieve array plaatsen
-$data=mysqli_fetch_all($result_set,MYSQLI_ASSOC);
+$data = $result_set->fetch_all(MYSQLI_ASSOC);
 // De data in een JSON formaat plaatsen
 echo json_encode($data);
 ```
@@ -103,22 +106,25 @@ We maken een form waarmee we data kunnen toevoegen aan de tabel. Noem dit bestan
     $dbname = '***';
 
     // Verbinden met de database
-    $connection = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+    $connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
+    if ($connection->connect_error) {
+        die("Connect Error ({$connection->connect_errno}) {$connection->connect_error}");
+    }
 
     // Een query uitvoeren
     $query = "SELECT * FROM subjects";
-    $result_set = mysqli_query($connection, $query);
+    $result_set = $connection->execute_query( $query);
 
     // De ontvangen resultaten gebruiken
-    while($subject = mysqli_fetch_assoc($result_set)) {
+    while($subject = $result_set->fetch_assoc()) {
       echo $subject["menu_name"] . "<br />";
     }
 
     // De ontvangen resultaten loslaten
-    mysqli_free_result($result_set);
+    $result_set->free();
 
     // De verbinding met de database afsluiten
-    mysqli_close($connection);
+    $connection->close();
 ?>
 
 <form action="mysqli_form.php" method="POST">
@@ -137,14 +143,11 @@ We plaatsen deze code onder de verbinding met de database, zodat de nieuwe data 
 // Is het een POST request?
 if($_SERVER['REQUEST_METHOD']=='POST')
 {
-  $menu_name=mysqli_real_escape_string($connection,$_POST['menu_name']);
-  $position=mysqli_real_escape_string($connection,$_POST['position']);
-  $visible=mysqli_real_escape_string($connection,$_POST['visible']);
-  $insert = "INSERT INTO subjects (menu_name, position, visible) VALUES ('{$menu_name}','{$position}','{$visible}');";
-  mysqli_query($connection,$insert);
+  $insert = "INSERT INTO subjects (menu_name, position, visible) VALUES (?, ?, ?)";
+  $connection->execute_query($insert, [$_POST['menu_name'], $_POST['position'], $_POST['visible']]);
 }
 ```
-We gebruiken hierbij `mysqli_real_escape_string()` om te vermijden dat hackers een `;` zouden plaatsen in de input gevolgd door een SQL commando waardoor ongewenste interactie met onze database zou kunnen ontstaan. Dit soort aanval wordt ook wel een **SQL injectie** genoemd.
+We gebruiken hier een prepared statement waarbij de input parameters in de query vervangen worden door vraagtekens. Tijdens het uitvoeren van de code worden deze vraagtekens vervangen door de elementen van een array die als argument meegegeven kan worden aan de **execute_query** methode. Dit alles doen we om te vermijden dat hackers een `;` zouden plaatsen in de input gevolgd door een SQL commando,  waardoor ongewenste interactie met onze database zou kunnen ontstaan. Dit soort aanval wordt ook wel een **SQL injectie** genoemd.
 
 We zijn nu in staat om nieuwe records aan onze tabel toe te voegen. Vervolgens willen we ook records kunnen wissen vanuit dezelfde pagina.
 
@@ -164,7 +167,7 @@ Pas de code als volgt aan:
 
 ```php
     // De ontvangen resultaten gebruiken
-    while($subject = mysqli_fetch_assoc($result_set)) {
+    while($subject = $result_set->fetch_assoc()) {
       echo $subject["menu_name"];
       echo "<input type='checkbox' name='checkboxes[]' value={$subject['id']} /><br/>";
     }
@@ -205,16 +208,13 @@ if($_SERVER['REQUEST_METHOD']=='POST')
     if($_POST["action"]=='delete') {
         for($i=0; $i < count($_POST['checkboxes']); $i++){
             $delete = "DELETE FROM subjects WHERE id='{$_POST['checkboxes'][$i]}';";
-            mysqli_query($connection,$delete);
+            $connection->execute_query($delete);
         }
     }   
     // Is het een INSERT actie ?
     if($_POST["action"]=='insert') {
-        $menu_name=mysqli_real_escape_string($connection,$_POST['menu_name']);
-        $position=mysqli_real_escape_string($connection,$_POST['position']);
-        $visible=mysqli_real_escape_string($connection,$_POST['visible']);
-        $insert = "INSERT INTO subjects (menu_name, position, visible) VALUES ('{$menu_name}','{$position}','{$visible}');";
-        mysqli_query($connection,$insert);
+        $insert = "INSERT INTO subjects (menu_name, position, visible) VALUES (?, ?, ?)";
+        $connection->execute_query($insert, [$_POST['menu_name'], $_POST['position'], $_POST['visible']]);
     }
 }
 ```
