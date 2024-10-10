@@ -1,6 +1,6 @@
-import { containerPlugin } from '@vuepress/plugin-container'
 import { viteBundler } from '@vuepress/bundler-vite'
 import { defaultTheme } from '@vuepress/theme-default'
+import { copyCodePlugin } from '@vuepress/plugin-copy-code'
 
 
 module.exports = {
@@ -35,18 +35,15 @@ module.exports = {
       }           
     ]    
   }),
-  markdown: {
-    lineNumbers: true,
-  },
   serviceWorker: true,
   plugins: [
-    containerPlugin({
-      type: 'codeoutput',
+    copyCodePlugin({
       locales: {
         '/': {
-          defaultInfo: 'Output',
+          copy: 'Copy code',
+          copied: 'Copied',
         },
       },
-    }),  
-  ],  
+    }),
+  ],
 }
