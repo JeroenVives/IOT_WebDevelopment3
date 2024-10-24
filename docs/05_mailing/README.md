@@ -199,12 +199,6 @@ Een APIkey is een onleesbare stringcombinatie van tekens die als volgt kan gegen
     $uuid = vsprintf( '%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(random_bytes(16)), 4) );
 ```
 
-Je kan nu in de PHP code de APIkey met deze functie genereren:
-```php
-// Genereren APIkey
-    $apikey = getGUID();
-```
-
 ## Project
 
 ::: tip Deel 5
