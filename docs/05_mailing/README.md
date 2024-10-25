@@ -58,7 +58,7 @@ We starten met het ophalen van de POST data:
 </html>
 ```
 
-We zullen een html mail versturen, hiervoor zullen we een css opmaak gebruiken. Plaats onderstaande styling in een bestand `mailstyle.css` onder de folder `styles`.
+We zullen een html mail versturen, hiervoor zullen we een css opmaak gebruiken. Plaats onderstaande styling in een bestand `mail_style.css` onder de folder `styles`.
 
 ```css
 html{
@@ -119,74 +119,82 @@ body{
 }
 ```
 
-We laten de APIkey even voor wat het is en starten nu met de opbouw van de mail om die vervolgens te versturen.
+We laten de APIkey even voor wat het is en starten nu met de opbouw van de mail om die vervolgens te versturen. We doen dit a.d.h.v. twee functies. We maken bovendien gebruik van een [extern CSS bestand](/files/mail_style.css) en een [logo in PNG formaat](/files/mail_logo.png).
 
 ```php
-    // Genereren APIkey
-    $apikey = "voorlopige test";
-
-    // subject definieren
-    $subject = "Copy of your contact request";
-
-    // server bestanden inladen
-    $content = file_get_contents("./styles/mailstyle.css");
-    $img = file_get_contents('./images/logo.png');
-    $imgdata = base64_encode($img);
-
-    // html body definieren                
-    $body = <<<EOF
+<?php
+    function generateEmailContent(string $firstName, string $innerHtmlContent): string {
+        $style = file_get_contents("./mail_style.css");
+        $img = file_get_contents('./mail_logo.png');
+        $imgdata = base64_encode($img);
+        $content = "
             <html>
-            <head>
-            <style>
-            $content
-            </style>
-            </head>
-            <body>
-            <div id="banner">
-                <img id="logo" src='data:image/x-icon;base64,$imgdata'>
-                <div id="maintext">
-                    <h1>VIVES Internet of Things</h1>
-                    <p>Design your future</p>                
-                </div>        
-            </div>
-    
-            <p>Hello $firstname,</p>
-            <p>Thank you for registering on the VIVES IoT page!</p>
-            <p>We have registered the following credentials:<p>
-            <ul>
-                <li>Firstname: <b>$firstname</b></li>
-                <li>Name: <b>$name</b></li>
-                <li>Email: <b>$email</b></li>                                    
-            </ul>
-            
-            <div id="info">
-                <p>You can use your personal APIkey for IoT purposes.</p>
-                <ul>
-                    <li>Your <b>APIkey</b> = $apikey</li>
-                </ul>
-            </div>
+                <head>
+                    <style>
+                        {$style}
+                    </style>
+                </head>
+                <body>
+                    <div id=\"banner\">
+                        <img id=\"logo\" src=\"data:image/png;base64,{$imgdata}\">
+                        <div id=\"maintext\">
+                            <h1>Internet of Things</h1>
+                            <p>Design your future</p>                
+                        </div>        
+                    </div>
+                    <div id=\"header\">
+                        <p>Hi {$firstName}!</p>
+                    </div>
+                    <br>
+                    <div id=\"inner\">
+                        {$innerHtmlContent}
+                    </div>
+                    <br>
+                    <div id=\"footer\">
+                        <p>Regards,<p>
+                        <p>The VIVES IoT team</p>
+                    </div>                          
+                </body>
+            </html>";
+        return $content;
+    }
 
-            <p>Regards,<p>
-            <p>The VIVES IoT team.</p>                                
-            </body>
-            </html>
-            EOF;
-
-            // Set content-type header for sending HTML email 
-            $headers = "MIME-Version: 1.0" . "\r\n"; 
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n"; 
-
-            // Mail versturen
-            $result=mail($email, $subject, $body, $headers);   
+    function sendEmail($firstName, $subject, $toEmail, $innerHtmlContent): bool{
+        $fromEmail = "mijn-domein@webhosting.be";
+        $content = generateEmailContent($firstName, $innerHtmlContent);
+        $headers = "MIME-Version: 1.0" . "\r\n"; 
+        $headers .= "Content-type: text/html;charset=UTF-8" . "\r\n";
+        $headers .= "From: {$fromEmail}" . "\r\n";
+        $success = mail($toEmail, $subject, $content, $headers);
+        return $success;
+    }
+?>
 ```
-Tot slot kunnen we de confirmatie tekst voorzien:
+
+Deze laatste functie kunnen we nu als volgt oproepen:
 
 ```php
-    // Content op pagina plaatsen
-    echo "<div class=\"response\" style=\"background-color:#b3e6b3;color:#267326;border-radius:5px;width:90%;padding:12px 20px;margin:10px\">";
-    echo "<p>".$firstname.", you succesfully registrated.</p>";
-    echo "<p>A confirmationmail has been send to ".$email." with your APIkey</p>";
-    echo "</div>"; 
+    $firstName = $_POST['first-name'];
+    $lastName = $_POST['last-name'];
+    $email = $_POST['email'];
+
+    echo "<p>Thank you, {$firstName} {$lastName}!</p>";
+
+    $innerHtmlContent = "
+        <p>Thank you for participating in our quiz!</p>
+        <p>Your score is ...<p>
+    ";
+
+    $toEmail = $email;
+	$subject = "Your quiz score";
+
+    $emailSent = sendEmail($firstName, $subject, $toEmail, $innerHtmlContent);
+
+	if ($emailSent) {
+		echo "<p>Please check your email to see the score...</p>";
+	} else {
+		echo "<p>Your score is ...</p>";
+	}
 ```
 
 ## Een APIkey genereren
